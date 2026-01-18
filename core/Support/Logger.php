@@ -8,7 +8,7 @@ class Logger
 
     public function __construct()
     {
-        $this->logFile = __DIR__ . '/../logs/app.log';
+        $this->logFile = __DIR__ . '/../../logs/app.log';
         if (!file_exists(dirname($this->logFile))) {
             mkdir(dirname($this->logFile), 0777, true);
         }

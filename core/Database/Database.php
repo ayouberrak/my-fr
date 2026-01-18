@@ -7,10 +7,14 @@ use PDOException;
 
 class Database
 {
-    public PDO $pdo;
+    public ?PDO $pdo = null;
 
-    public function __construct()
+    public function connect()
     {
+        if ($this->pdo) {
+            return;
+        }
+
         $dbConnection = $_ENV['DB_CONNECTION'] ?? 'mysql';
         $dbHost = $_ENV['DB_HOST'] ?? '127.0.0.1';
         $dbPort = $_ENV['DB_PORT'] ?? '3306';
@@ -25,12 +29,14 @@ class Database
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
         } catch (PDOException $e) {
-            die("Database Connection Failed: " . $e->getMessage());
+            $drivers = implode(', ', PDO::getAvailableDrivers());
+            die("Database Connection Failed: " . $e->getMessage() . " (Available Drivers: $drivers)");
         }
     }
 
     public function query(string $sql, array $params = [])
     {
+        $this->connect();
         $statement = $this->pdo->prepare($sql);
         $statement->execute($params);
         return $statement;
