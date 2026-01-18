@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Ayoub Framework</title>
+ <style>
+ @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+
+ body {
+ background-color: #050510;
+ margin: 0;
+ height: 100vh;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ font-family: 'Space Grotesk', sans-serif;
+ color: #fff;
+ overflow: hidden;
+ perspective: 1000px;
+ }
+
+ /* Animated Grid Background */
+ .grid-bg {
+ position: absolute;
+ width: 200%;
+ height: 200%;
+ background-image: 
+ linear-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px),
+ linear-gradient(90deg, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+ background-size: 50px 50px;
+ transform: rotateX(45deg) translateY(-25%) translateZ(-200px);
+ animation: moveGrid 20s linear infinite;
+ top: -50%;
+ left: -50%;
+ z-index: -1;
+ mask-image: radial-gradient(circle, #000 0%, transparent 70%);
+ -webkit-mask-image: radial-gradient(circle, black 30%, transparent 70%);
+ }
+
+ @keyframes moveGrid {
+ 0% { transform: rotateX(45deg) translateY(-25%) translateZ(-200px); }
+ 100% { transform: rotateX(45deg) translateY(-25%) translateZ(0px); }
+ }
+
+ .content {
+ text-align: center;
+ position: relative;
+ z-index: 10;
+ padding: 3rem;
+ background: rgba(5, 5, 16, 0.6);
+ backdrop-filter: blur(10px);
+ border-radius: 20px;
+ border: 1px solid rgba(255, 255, 255, 0.1);
+ box-shadow: 0 0 50px rgba(56, 189, 248, 0.1);
+ }
+
+ .badge {
+ display: inline-block;
+ padding: 0.5rem 1rem;
+ background: rgba(56, 189, 248, 0.1);
+ color: #38bdf8;
+ border-radius: 50px;
+ font-size: 0.8rem;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ font-weight: 700;
+ margin-bottom: 1.5rem;
+ border: 1px solid rgba(56, 189, 248, 0.3);
+ }
+
+ h1 {
+ font-size: 4.5rem;
+ margin: 0;
+ line-height: 1;
+ background: linear-gradient(to right, #fff, #94a3b8);
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ font-weight: 700;
+ margin-bottom: 1rem;
+ }
+
+ p {
+ font-size: 1.25rem;
+ color: #94a3b8;
+ max-width: 600px;
+ margin: 0 auto 2.5rem auto;
+ line-height: 1.6;
+ }
+
+ .btn {
+ padding: 1rem 2.5rem;
+ font-size: 1.1rem;
+ color: #050510;
+ background: #38bdf8;
+ border: none;
+ border-radius: 8px;
+ cursor: pointer;
+ text-decoration: none;
+ font-weight: 700;
+ transition: all 0.3s ease;
+ box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+ display: inline-block;
+ }
+
+ .btn:hover {
+ background: #7dd3fc;
+ transform: scale(1.05);
+ box-shadow: 0 0 40px rgba(56, 189, 248, 0.6);
+ }
+
+ .btn-outline {
+ background: transparent;
+ color: #fff;
+ border: 1px solid rgba(255,255,255,0.2);
+ margin-left: 1rem;
+ box-shadow: none;
+ }
+
+ .btn-outline:hover {
+ border-color: #fff;
+ background: rgba(255,255,255,0.05);
+ transform: scale(1.05);
+ }
+ </style>
+</head>
+<body>
+
+ <div class="grid-bg"></div>
+
+ <div class="content">
+ <span class="badge">v1.0.1 Stable</span>
+ <h1>Ayoub Framework</h1>
+ <p>The next-generation PHP framework. Engineered for performance, designed for simplicity, and built for you.</p>
+ 
+ <div>
+ <a href="/users" class="btn">Live Demo</a>
+ <a href="https://github.com/ayouberrak/ayoub-framework" target="_blank" class="btn btn-outline">Docs</a>
+ </div>
+ </div>
+
+</body>
+</html>
