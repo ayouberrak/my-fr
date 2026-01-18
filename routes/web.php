@@ -1,10 +1,10 @@
 <?php
 
-use App\Core\Application;
+use Core\Application;
 
-/** @var \App\Core\Router $router */
+/** @var \Core\Router $router */
 $router = Application::getInstance()->router;
 
 $router->get('/', function () use ($router) {
-    return $router->renderView('welcome');
+    return $router->renderView('welcome.index');
 });
