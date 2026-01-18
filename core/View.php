@@ -10,8 +10,8 @@ class View
 
     public function __construct()
     {
-        $views = __DIR__ . '/../../views';
-        $cache = __DIR__ . '/../../cache';
+        $views = __DIR__ . '/../views';
+        $cache = __DIR__ . '/../cache';
 
         if (!file_exists($cache)) {
             mkdir($cache, 0777, true);

@@ -5,3 +5,4 @@ vendor/
 brain/
 cache/
 !cache/.gitignore
+cheatsheet.txt

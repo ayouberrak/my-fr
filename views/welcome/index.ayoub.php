@@ -4,142 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayoub Framework</title>
+    <!-- Link Assets -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap');
 
         body {
-            background-color: #050510;
+            background-color: #020617; /* Very Dark Blue */
             margin: 0;
-            height: 100vh;
+            font-family: 'Outfit', sans-serif;
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Space Grotesk', sans-serif;
-            color: #fff;
+            min-height: 100vh;
             overflow: hidden;
-            perspective: 1000px;
-        }
-
-        /* Animated Grid Background */
-        .grid-bg {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background-image: 
-                linear-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(56, 189, 248, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: rotateX(45deg) translateY(-25%) translateZ(-200px);
-            animation: moveGrid 20s linear infinite;
-            top: -50%;
-            left: -50%;
-            z-index: -1;
-            mask-image: radial-gradient(circle, #000 0%, transparent 70%);
-            -webkit-mask-image: radial-gradient(circle, black 30%, transparent 70%);
-        }
-
-        @keyframes moveGrid {
-            0% { transform: rotateX(45deg) translateY(-25%) translateZ(-200px); }
-            100% { transform: rotateX(45deg) translateY(-25%) translateZ(0px); }
-        }
-
-        .content {
-            text-align: center;
             position: relative;
-            z-index: 10;
-            padding: 3rem;
-            background: rgba(5, 5, 16, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 50px rgba(56, 189, 248, 0.1);
         }
 
-        .badge {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        /* Subtle Glow */
+        .glow {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .container {
+            text-align: center;
+            padding: 4rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .logo-text {
+            font-size: 3.5rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-        }
-
-        h1 {
-            font-size: 4.5rem;
             margin: 0;
-            line-height: 1;
-            background: linear-gradient(to right, #fff, #94a3b8);
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            margin-bottom: 1rem;
         }
 
-        p {
+        .tagline {
             font-size: 1.25rem;
             color: #94a3b8;
-            max-width: 600px;
-            margin: 0 auto 2.5rem auto;
+            margin: 1.5rem 0 3rem 0;
+            font-weight: 300;
             line-height: 1.6;
         }
 
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
         .btn {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            color: #050510;
-            background: #38bdf8;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+            padding: 0.75rem 2rem;
+            border-radius: 12px;
+            font-weight: 500;
             text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-            display: inline-block;
+            transition: all 0.2s ease;
         }
 
-        .btn:hover {
-            background: #7dd3fc;
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(56, 189, 248, 0.6);
+        .btn-primary {
+            background: white;
+            color: #0f172a;
         }
 
-        .btn-outline {
+        .btn-primary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
             background: transparent;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-left: 1rem;
-            box-shadow: none;
+            color: #94a3b8;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .btn-outline:hover {
-            border-color: #fff;
-            background: rgba(255,255,255,0.05);
-            transform: scale(1.05);
+        .btn-secondary:hover {
+            color: white;
+            border-color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-
-    <div class="grid-bg"></div>
-
-    <div class="content">
-        <span class="badge">v1.0.1 Stable</span>
-        <h1>Ayoub Framework</h1>
-        <p>The next-generation PHP framework. Engineered for performance, designed for simplicity, and built for you.</p>
+    <div class="glow"></div>
+    
+    <div class="container">
+        <h1 class="logo-text">ayoub fw</h1>
+        <p class="tagline">
+            Simplicity meets power.<br>
+            Your premium starting point for modern PHP.
+        </p>
         
-        <div>
-            <a href="#" class="btn">Get Started</a>
-            <a href="https://github.com/ayouberrak/ayoub-framework" target="_blank" class="btn btn-outline">Docs</a>
+        <div class="actions">
+            <a href="#" class="btn btn-primary">Get Started</a>
+            <a href="https://github.com/ayouberrak/ayoub-framework" target="_blank" class="btn btn-secondary">Documentation</a>
         </div>
     </div>
-
 </body>
 </html>

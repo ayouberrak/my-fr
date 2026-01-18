@@ -10,25 +10,107 @@ $app = new Application(__DIR__);
 $command = $argv[1] ?? null;
 $name = $argv[2] ?? null;
 
-if (!$command) {
-    echo "Usage: php ayoub make:[controller|model|service|repository] <Name>\n";
+// Color Helpers
+function error($msg) {
+    echo "\033[31m" . $msg . "\033[0m\n"; // Red
+}
+
+function success($msg) {
+    echo "\033[32m" . $msg . "\033[0m\n"; // Green
+}
+
+function info($msg) {
+    echo "\033[36m" . $msg . "\033[0m\n"; // Cyan
+}
+
+if ($command === 'run') {
+    $port = $argv[2] ?? '8000';
+    info("Starting server on http://localhost:$port");
+    info("Press Ctrl+C to stop.");
+    passthru("php -S localhost:$port -t public");
+    exit(0);
+}
+
+if ($command === 'route:list') {
+    // Load routes
+    require_once __DIR__ . '/routes/web.php';
+    
+    $routes = $app->router->getRoutes();
+    echo "\nRegistered Routes:\n";
+    echo "\033[33m" . str_pad("METHOD", 10) . str_pad("URI", 30) . "ACTION\033[0m\n";
+    echo str_repeat("-", 60) . "\n";
+
+    foreach ($routes as $method => $paths) {
+        foreach ($paths as $uri => $callback) {
+            $methodStr = strtoupper($method);
+            $color = ($methodStr === 'GET') ? "\033[32m" : (($methodStr === 'POST') ? "\033[33m" : "\033[31m");
+            
+            if (is_array($callback)) {
+                $action = $callback[0] . '@' . $callback[1];
+            } else {
+                $action = 'Closure';
+            }
+            
+            echo $color . str_pad($methodStr, 10) . "\033[0m" . str_pad($uri, 30) . $action . "\n";
+        }
+    }
+    echo "\n";
+    exit(0);
+}
+
+if ($command === 'make:route') {
+    $method = $argv[2] ?? 'get';
+    $uri = $argv[3] ?? null;
+    $action = $argv[4] ?? null;
+
+    if (!$uri || !$action) {
+        error("Usage: php ayoub make:route <method> <uri> <controller@action>");
+        info("Example: php ayoub make:route get /users UserController@index");
+        exit(1);
+    }
+
+    $webRoutePath = __DIR__ . '/routes/web.php';
+    
+    // Format the action
+    if (str_contains($action, '@')) {
+        list($controller, $methodName) = explode('@', $action);
+        // Add full namespace if not present
+        if (!str_contains($controller, '\\')) {
+            $controller = "App\\Controllers\\$controller";
+        }
+        $routeLine = "\n\$router->$method('$uri', [$controller::class, '$methodName']);";
+    } else {
+        $routeLine = "\n\$router->$method('$uri', function() { echo '$action'; });";
+    }
+
+    file_put_contents($webRoutePath, $routeLine, FILE_APPEND);
+    success("Route created successfully: $method $uri");
+    exit(0);
+}
+
+if (!str_contains($command, ':')) {
+    info("Usage:");
+    info("  php ayoub run [port]");
+    info("  php ayoub make:[controller|model|service|repository] <Name>");
+    info("  php ayoub make:route <method> <uri> <action>");
+    info("  php ayoub route:list");
     exit(1);
 }
 
 list($action, $type) = explode(':', $command);
 
 if ($action !== 'make' || !$name) {
-    echo "Invalid command.\n";
+    error("Invalid command or missing name.");
     exit(1);
 }
 
 function createFile($path, $content) {
     if (file_exists($path)) {
-        echo "File already exists: $path\n";
+        error("File already exists: $path");
         return;
     }
     file_put_contents($path, $content);
-    echo "Created: $path\n";
+    success("Created: $path");
 }
 
 switch ($type) {
