@@ -1,0 +1,58 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/vendor/autoload.php';
+
+use App\Core\Application;
+
+$app = new Application(__DIR__);
+
+$command = $argv[1] ?? null;
+$name = $argv[2] ?? null;
+
+if (!$command) {
+    echo "Usage: php forge make:[controller|model|service|repository] <Name>\n";
+    exit(1);
+}
+
+list($action, $type) = explode(':', $command);
+
+if ($action !== 'make' || !$name) {
+    echo "Invalid command.\n";
+    exit(1);
+}
+
+function createFile($path, $content) {
+    if (file_exists($path)) {
+        echo "File already exists: $path\n";
+        return;
+    }
+    file_put_contents($path, $content);
+    echo "Created: $path\n";
+}
+
+switch ($type) {
+    case 'controller':
+        $content = "<?php\n\nnamespace App\Controllers;\n\nuse App\Core\Controller;\n\nclass {$name} extends Controller\n{\n    public function index()\n    {\n        return \$this->render('index');\n    }\n}\n";
+        createFile(__DIR__ . "/app/Controllers/{$name}.php", $content);
+        break;
+
+    case 'model':
+        $content = "<?php\n\nnamespace App\Models;\n\nuse App\Core\Model;\n\nclass {$name} extends Model\n{\n    protected static string \$table = '" . strtolower($name) . "s';\n}\n";
+        createFile(__DIR__ . "/app/Models/{$name}.php", $content);
+        break;
+
+    case 'service':
+        $content = "<?php\n\nnamespace App\Services;\n\nuse App\Core\Service;\n\nclass {$name} extends Service\n{\n    // Service logic \n}\n";
+        createFile(__DIR__ . "/app/Services/{$name}.php", $content);
+        break;
+
+    case 'repository':
+        $content = "<?php\n\nnamespace App\Repositories;\n\nuse App\Core\Repository;\n\nclass {$name} extends Repository\n{\n    // Repository logic \n}\n";
+        createFile(__DIR__ . "/app/Repositories/{$name}.php", $content);
+        break;
+
+    default:
+        echo "Unknown type: $type\n";
+        break;
+}

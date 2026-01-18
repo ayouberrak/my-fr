@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Core\Repository;
+use App\Models\User;
+
+class UserRepository extends Repository
+{
+    public function __construct()
+    {
+        $this->model = new User();
+    }
+}
