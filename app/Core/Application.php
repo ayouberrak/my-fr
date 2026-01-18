@@ -27,6 +27,12 @@ class Application extends Container
     {
         $dotenv = \Dotenv\Dotenv::createImmutable($this->basePath);
         $dotenv->safeLoad();
+
+        if ($_ENV['APP_DEBUG'] === 'true') {
+            $whoops = new \Whoops\Run;
+            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+            $whoops->register();
+        }
     }
 
     public function run(): void

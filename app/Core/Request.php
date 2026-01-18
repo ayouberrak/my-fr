@@ -42,6 +42,11 @@ class Request
         $this->routeParams = $params;
     }
 
+    public function getRouteParams()
+    {
+        return $this->routeParams;
+    }
+
     public function all()
     {
         return $this->getBody();

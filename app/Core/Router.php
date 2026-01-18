@@ -64,7 +64,10 @@ class Router
             }
         }
 
-        return call_user_func($callback, $this->request);
+        return call_user_func_array($callback, [
+            $this->request,
+            ...$this->request->getRouteParams()
+        ]);
     }
 
     public function renderView($view, $params = [])

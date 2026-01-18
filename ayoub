@@ -11,7 +11,7 @@ $command = $argv[1] ?? null;
 $name = $argv[2] ?? null;
 
 if (!$command) {
-    echo "Usage: php forge make:[controller|model|service|repository] <Name>\n";
+    echo "Usage: php ayoub make:[controller|model|service|repository] <Name>\n";
     exit(1);
 }
 
@@ -33,21 +33,31 @@ function createFile($path, $content) {
 
 switch ($type) {
     case 'controller':
+        if (!str_ends_with($name, 'Controller')) {
+            $name .= 'Controller';
+        }
         $content = "<?php\n\nnamespace App\Controllers;\n\nuse App\Core\Controller;\n\nclass {$name} extends Controller\n{\n    public function index()\n    {\n        return \$this->render('index');\n    }\n}\n";
         createFile(__DIR__ . "/app/Controllers/{$name}.php", $content);
         break;
 
     case 'model':
+        // Models usually don't have 'Model' suffix
         $content = "<?php\n\nnamespace App\Models;\n\nuse App\Core\Model;\n\nclass {$name} extends Model\n{\n    protected static string \$table = '" . strtolower($name) . "s';\n}\n";
         createFile(__DIR__ . "/app/Models/{$name}.php", $content);
         break;
 
     case 'service':
+        if (!str_ends_with($name, 'Service')) {
+            $name .= 'Service';
+        }
         $content = "<?php\n\nnamespace App\Services;\n\nuse App\Core\Service;\n\nclass {$name} extends Service\n{\n    // Service logic \n}\n";
         createFile(__DIR__ . "/app/Services/{$name}.php", $content);
         break;
 
     case 'repository':
+        if (!str_ends_with($name, 'Repository')) {
+            $name .= 'Repository';
+        }
         $content = "<?php\n\nnamespace App\Repositories;\n\nuse App\Core\Repository;\n\nclass {$name} extends Repository\n{\n    // Repository logic \n}\n";
         createFile(__DIR__ . "/app/Repositories/{$name}.php", $content);
         break;
