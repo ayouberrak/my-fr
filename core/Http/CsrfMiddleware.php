@@ -1,6 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Http;
+
+use Core\Application;
+use Core\Security\Session;
 
 use Exception;
 

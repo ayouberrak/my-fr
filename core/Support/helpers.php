@@ -18,7 +18,7 @@ function storage_path($path = '')
 if (!function_exists('logger')) {
     function logger($message, $level = 'INFO')
     {
-        \Core\Application::getInstance()->resolve(\Core\Logger::class)->log($message, $level);
+        \Core\Application::getInstance()->resolve(\Core\Support\Logger::class)->log($message, $level);
     }
 }
 if (!function_exists('csrf_token')) {
@@ -38,7 +38,7 @@ if (!function_exists('csrf_field')) {
 if (!function_exists('redirect')) {
     function redirect($path)
     {
-        return new \Core\Redirect($path);
+        return new \Core\Support\Redirect($path);
     }
 }
 

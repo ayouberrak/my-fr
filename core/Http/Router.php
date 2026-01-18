@@ -1,6 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Http;
+
+use Core\Application;
+use Core\View\View;
 
 class Router
 {
@@ -59,7 +62,7 @@ class Router
         }
 
         if (is_array($callback)) {
-            /** @var \App\Core\Controller $controller */
+            /** @var \App\Controllers\Controller $controller */
             $controller = Application::getInstance()->resolve($callback[0]);
             $callback[0] = $controller;
             

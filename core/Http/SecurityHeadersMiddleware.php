@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Http;
 
 class SecurityHeadersMiddleware extends Middleware
 {

@@ -2,6 +2,14 @@
 
 namespace Core;
 
+use Core\Http\Router;
+use Core\Database\Database;
+use Core\View\View;
+use Core\Security\Session;
+use Core\Support\Logger;
+use Core\Http\SecurityHeadersMiddleware;
+use Core\Http\CsrfMiddleware;
+
 class Application extends Container
 {
     public Router $router;

@@ -1,12 +1,14 @@
 <?php
 
-namespace Core;
+namespace App\Repositories;
+
+use App\Models\Model;
 
 abstract class Repository
 {
     protected Model $model;
 
-    // Common repository methods can go here
+    // Common repository methods
     public function all()
     {
         return $this->model::all();
@@ -37,7 +39,6 @@ abstract class Repository
         return $this->model::findBy($column, $value);
     }
 
-    // Specific alias for "find by email" as requested
     public function findByEmail($email)
     {
         return $this->findBy('email', $email);

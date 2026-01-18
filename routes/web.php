@@ -2,7 +2,7 @@
 
 use Core\Application;
 
-/** @var \Core\Router $router */
+/** @var \Core\Http\Router $router */
 $router = Application::getInstance()->router;
 
 $router->get('/', function () use ($router) {

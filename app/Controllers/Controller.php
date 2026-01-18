@@ -1,6 +1,10 @@
 <?php
 
-namespace Core;
+namespace App\Controllers;
+
+use Core\Application;
+use Core\Security\Validator;
+use Core\Http\Middleware;
 
 class Controller
 {
@@ -19,10 +23,10 @@ class Controller
         if ($validator->fails()) {
             Application::getInstance()->session->setFlash('errors', $validator->errors());
             Application::getInstance()->session->setFlash('old', $data);
-            back(); // Helper we need to create
+            back();
         }
 
-        return $data; // or valid data
+        return $data;
     }
     
     public function registerMiddleware(Middleware $middleware): void

@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace App\Models;
+
+use Core\Application;
 
 abstract class Model
 {
@@ -12,7 +14,7 @@ abstract class Model
            return static::$table;
         }
         $path = explode('\\', static::class);
-        return strtolower(array_pop($path)) . 's'; // simple pluralization
+        return strtolower(array_pop($path)) . 's';
     }
 
     public static function all()
