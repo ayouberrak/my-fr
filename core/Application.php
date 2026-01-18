@@ -46,7 +46,7 @@ class Application extends Container
         $dotenv = \Dotenv\Dotenv::createImmutable($this->basePath);
         $dotenv->safeLoad();
 
-        if ($_ENV['APP_DEBUG'] === 'true') {
+        if (($_ENV['APP_DEBUG'] ?? 'false') === 'true') {
             ini_set('display_errors', 1);
             ini_set('display_startup_errors', 1);
             error_reporting(E_ALL);
