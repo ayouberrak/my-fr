@@ -3,4 +3,3 @@ vendor/
 .idea/
 .vscode/
 brain/
-verification_test.php

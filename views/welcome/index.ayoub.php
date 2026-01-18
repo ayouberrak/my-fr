@@ -136,7 +136,7 @@
         <p>The next-generation PHP framework. Engineered for performance, designed for simplicity, and built for you.</p>
         
         <div>
-            <a href="/users" class="btn">Live Demo</a>
+            <a href="#" class="btn">Get Started</a>
             <a href="https://github.com/ayouberrak/ayoub-framework" target="_blank" class="btn btn-outline">Docs</a>
         </div>
     </div>
