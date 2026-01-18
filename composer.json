@@ -1,5 +1,5 @@
 {
-    "name": "ayoub/freamwork",
+    "name": "ayouberrak/freamwork",
     "description": "Lightweight PHP MVC Framework",
     "type": "project",
     "require": {
@@ -14,7 +14,7 @@
     "authors": [
         {
             "name": "Ayoub",
-            "email": "ayoub@example.com"
+            "email": "ayouberrak30@gmail.com"
         }
     ],
     "minimum-stability": "stable"
